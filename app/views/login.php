@@ -39,16 +39,17 @@
             <div class="flex flex-row gap-1 items-center justify-center ml-2 ">
 
 
-                <h2 class="ms-3 font-extrabold text-dark font-semibold text-2xl">Data</h2>
-                <img src="<?= BASE_URL_ASSETS ?>img/brand.png" alt=brand />
-                <h2 class="ms-3 font-extrabold text-dark font-semibold text-2xl">are </h2>
+                <!-- <h1 class="ms-3 font-extrabold text-dark font-semibold text-2xl">Wiki&trade;</h1> -->
+
+                <img class="w-20" src="<?= BASE_URL_ASSETS ?>img/Wiki™.jpg" alt=brand />
+
             </div>
-            <div class="mt-12 flex flex-col items-center">
+            <div class=" flex flex-col items-center">
 
-                <div class=" w-full flex-1 mt-8">
+                <div class=" w-full flex-1 ">
 
 
-                    <div class="my-12 border-b text-center">
+                    <div class="my-5 border-b text-center">
                         <a href="<?= BASE_URL ?>/user/" class="border-b  leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                             Don't have an account
                         </a>

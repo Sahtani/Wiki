@@ -4,7 +4,7 @@ session_start();
 define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 define('APP', ROOT . 'app' . DIRECTORY_SEPARATOR);
 define('CONTROLLER', ROOT . 'app' . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR);
-define('CORE', ROOT . 'app' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR);
+define('CORE', ROOT . 'app' . DIRECTORY_SEPARATOR . 'core' . DIRECTORY_SEPARATOR);
 define('DATA', ROOT . 'app' . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR);
 define('URL_HELPER', ROOT . 'app' . DIRECTORY_SEPARATOR . 'helpers' . DIRECTORY_SEPARATOR . 'url_helper.php');
 define('MODEL', ROOT . 'app' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR);
@@ -15,8 +15,8 @@ define('SESSION_HELPER', ROOT . 'app' . DIRECTORY_SEPARATOR . 'helpers' . DIRECT
 
 
 
-define('BASE_URL', 'http://localhost/Task-Planning-System/public');
-define('BASE_URL_ASSETS', 'http://localhost/Task-Planning-System/public/assets/');
+define('BASE_URL', 'http://localhost/Wiki/public');
+define('BASE_URL_ASSETS', 'http://localhost/Wiki/public/assets/');
 
 
 
@@ -26,7 +26,6 @@ require_once URL_HELPER;
 require_once SESSION_HELPER;
 // 
 set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR, $modules));
-// die(set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR, $modules)));
 spl_autoload_register('spl_autoload');
 new App();
 ?>
