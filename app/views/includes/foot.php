@@ -1,0 +1,1 @@
+<script src="<?= BASE_URL_ASSETS ?>js/validation.js"></script>

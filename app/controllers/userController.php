@@ -74,13 +74,13 @@ class UserController extends Controller
 
 
             $user = $this->model->logIn();
-            if ($user !== false && $email= $user['email']&& password_verify($password, $user['password'])) {
+            if ($user !== false && $email= $user['email']&& password_verify($password, $user['password']) && $user['role'] ) {
                 $_SESSION['authorize'] = true;
-                $_SESSION["user-id"] = $user["iduser"];
+                $_SESSION["user-id"] = $user["idUser"];
                 $_SESSION["name-id"] = $user["firstname"];
 
                
-                redirect("project");
+                redirect("admin");
             } else {
                 $this->log_in("This account does not exist or the password is incorrect.");
                 exit;
