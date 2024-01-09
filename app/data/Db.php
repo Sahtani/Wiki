@@ -8,6 +8,16 @@ class Db
     private $connection;
     private static $instance;
 
+    // public static function getInstance()
+    // {
+    //     if (self::$connection === null) {
+    //         self::$connection = new PDO("mysql:host=" . self::$host . ";dbname=" . self::$dbname, self::$username, self::$password);
+    //         self::$connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    //         self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //     }
+    //     return self::$connection;
+    // }
+
     private function  __construct()
     {
         try {
