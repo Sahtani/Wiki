@@ -1,12 +1,11 @@
 <?php
-ob_flush();
 class AdminController extends Controller
 {
     public function index($error = "")
     {
         if (isUserLogged()) {
             $category = $this->displayCategory();
-            $this->view("admin/dashboard", "", ["error" => $error,"category" => $category]);
+            $this->view("admin/dashboard", "", ["error" => $error, "category" => $category]);
             $this->view->render();
         } else {
             redirect('user/log_in');
@@ -38,50 +37,40 @@ class AdminController extends Controller
 
                 $this->model("admin");
                 $this->setCategoryData($data);
-
-                $result = $this->model->addCategory();
-                if ($result) {
-                    redirect("admin");
-
-                    exit();
+                $cat = $this->model->getCategoryrow();
+                if ($cat) {
+                    $this->index("This Category Already Exists!");
+                    exit;
                 } else {
-                    $this->index("categorie not Added Successfully!");
-                };
- 
-            //     if ($result === true) {
-            //        ;
-            //     } else {
-            //         echo "Error adding category: " . $result;
-            //     }
-            // } else {
-            //     echo "Invalid data submitted.";
+                    $this->model->addCategory();
+                    redirect("admin");
+                }
             }
         }
     }
     public function update_category()
     {
         if (isset($_POST["submit-edite"])) {
-        $id = $_POST["id"];
-        $name = $_POST["name"];
-        $date = $_POST["date"];
+            $id = $_POST["id"];
+            $name = $_POST["name"];
+            $date = $_POST["date"];
 
-        $data = [
-            "name" => $this->validateData($name),
-            "date" => $this->validateData($date),
-        ];
-        $this->model("admin");
-        $this->setCategoryData($data);
+            $data = [
+                "id" => $this->validateData($id),
+                "name" => $this->validateData($name),
+                "date" => $this->validateData($date),
+            ];
+            $this->model("admin");
+            $this->setCategoryDataup($data);
 
-        $result = $this->model->updateCategory(); 
-       var_dump($result);
-       die();
+            $result = $this->model->updateCategory();
             if ($result) {
                 redirect("admin");
-               
             } else {
                 $this->index("Failed to update categorie.");
             }
-    }}
+        }
+    }
     // delete category
     public function delete_category($id)
     {
@@ -90,16 +79,25 @@ class AdminController extends Controller
         $result = $this->model->deleteCategory();
         redirect("admin");
     }
-    // tags
+
 
     // set all data
     public function setCategoryData($data)
     {
         $this->model("admin");
+
         $this->model->setName($data["name"]);
         $this->model->setDate($data["date"]);
     }
-
+    public function setCategoryDataup($data)
+    {
+        $this->model("admin");
+        $this->model->setid($data["id"]);
+        $this->model->setName($data["name"]);
+        $this->model->setDate($data["date"]);
+    }
+   
+    // public function
     public function validateData($data)
     {
         if (isset($data) and !empty($data)) {

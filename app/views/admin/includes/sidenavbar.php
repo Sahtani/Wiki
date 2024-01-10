@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,7 +89,7 @@
         <div class="h-full px-3 pb-4 overflow-y-auto bg-primary ">
             <ul class="space-y-2 font-medium">
                 <li class="min-w-max">
-                    <a href="#" class="bg group flex items-center space-x-4 rounded-lg px-4 py-3 text-gray-600 ">
+                    <a href="<?= BASE_URL ?>/admin" class="bg group flex items-center space-x-4 rounded-lg px-4 py-3 text-gray-600 ">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#583E26">
                             <path class="fill-current text-gray-300 group-hover:text-cyan-300" fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z" clip-rule="evenodd" />
                             <path class="fill-mr text-gray-600 group-hover:text-cyan-600" d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
@@ -107,7 +106,7 @@
                     </a>
                 </li>
                 <li class="min-w-max">
-                    <a href="#" class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
+                    <a href="<?= BASE_URL ?>/tag" class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#583E26">
                             <path class="fill-mr text-gray-600 group-hover:text-cyan-600" fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd" />
                             <path class="fill-current text-gray-300 group-hover:text-cyan-300" d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z" />

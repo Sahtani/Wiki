@@ -49,7 +49,7 @@
                              <input class="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" type="password" id="password" name="password" required placeholder="Password" />
                              <span id="passwordError" class="error-message text-xs"></span>
 
-                             <button class="mt-8 tracking-wide font-semibold bg-mrbg text-gray-100 w-full py-4 rounded-lg hover:bg-moinmaron transition-all duration-300 ease-in-out flex items-center justify-center  focus:outline-none" name="submit" type="submit">
+                             <button class="mt-6 tracking-wide font-semibold bg-mrbg text-gray-100 w-full py-4 rounded-lg hover:bg-moinmaron transition-all duration-300 ease-in-out flex items-center justify-center  focus:outline-none" name="submit" type="submit">
                                  <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                      <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
                                      <circle cx="8.5" cy="7" r="4" />
@@ -59,6 +59,9 @@
                                      Sign Up
                                  </span>
                              </button>
+                             <p class="text-red-500 text-center mb-2 mt-1">
+                                 <?= $this->view_data["error"]; ?>
+                             </p>
                          </div>
                      </form>
 

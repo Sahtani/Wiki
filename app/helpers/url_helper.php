@@ -1,4 +1,5 @@
-<?php function redirect($page)
-{
+<?php
+function redirect($page){
     header("location: " . BASE_URL . "/" . $page);
-}?>
+}
+?>

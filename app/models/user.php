@@ -12,11 +12,7 @@
         {
             $this->conn = Db::getInstance()->getConnection();
         }
-    
-
-       
-    
-        // getters
+    // getters
         public function getfirstName()
         {
             return $this->firstName;
@@ -76,8 +72,7 @@
                     return false;
                 }
             } catch (PDOException $e) {
-                error_log("Error in validateUser: " . $e->getMessage());
-                return false; 
+                return $e->getMessage();
             }
         }
 
