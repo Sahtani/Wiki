@@ -36,9 +36,10 @@ class Tag{
             $stmt = $this->conn->prepare("SELECT * FROM tag");
             $stmt->execute();
             $data = $stmt->fetchAll();
+           
             if (count($data) > 0) {
                 return $data;
-            }
+            }else return false;
         } catch (PDOException $e) {
             return $e->getMessage();
         }
@@ -49,6 +50,7 @@ class Tag{
             $stmt = $this->conn->prepare("SELECT name FROM tag WHERE name = :name");
             $stmt->bindParam(":name", $this->name);
             $stmt->execute();
+            
             if ($stmt->rowCount() > 0) {
                 return true;
             } else {
@@ -73,7 +75,7 @@ class Tag{
     public function updateTag()
     {
         try {
-            $stmt = $this->conn->prepare("UPDATE tag SET idtag =:id,name = :name");
+            $stmt = $this->conn->prepare("UPDATE tag SET name = :name where idtag =:id");
 
             $stmt->bindParam("id", $this->id);
             $stmt->bindParam(":name", $this->name);
@@ -89,7 +91,7 @@ class Tag{
     public function deleteTag()
     {
         try {
-            $stmt = $this->conn->prepare("DELETE FROM tag WHERE id =:id");
+            $stmt = $this->conn->prepare("DELETE FROM tag WHERE idtag =:id");
             $stmt->bindParam(":id", $this->id);
             $stmt->execute();
         } catch (PDOException $e) {

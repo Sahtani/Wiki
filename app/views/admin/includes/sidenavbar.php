@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link rel="shortcut icon" href="" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 
@@ -47,10 +49,7 @@
         }
     </style>
     </style>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.0.1/tailwind.min.css'>
-    <link rel="stylesheet" href="./style.css">
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css" rel="stylesheet" />
 
 <body class="bg-white">
     <nav class="fixed top-0 z-50 w-full   bg-primary dark:border-gray-700">
@@ -65,7 +64,6 @@
                         </svg>
                     </button>
                     <div class="flex flex-row gap-1 items-center justify-center  ">
-
 
                         <div class="toggle-menu mt-4 flex flex-row gap-1 ml-8 ">
                             <h1 class="font-extrabold font-serif text-3xl text-mr text-shadow cursor-pointer">Wiki&trade;</h1>
@@ -85,7 +83,7 @@
         </div>
     </nav>
 
-    <aside id="logo-sidebar" class=" bg-verblanc fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full sm:translate-x-0 " aria-label="Sidebar">
+    <aside id="logo-sidebar" class="bg-verblanc fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
         <div class="h-full px-3 pb-4 overflow-y-auto bg-primary ">
             <ul class="space-y-2 font-medium">
                 <li class="min-w-max">
@@ -124,7 +122,7 @@
                     </a>
                 </li>
                 <li class="min-w-max">
-                    <a href="#" class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
+                    <a href="<?= BASE_URL ?>/user/logout" class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
                         <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512" fill="#583E26">
                             <path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z" />
                         </svg>
