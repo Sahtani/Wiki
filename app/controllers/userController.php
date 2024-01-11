@@ -115,5 +115,12 @@ class UserController extends Controller
             redirect('user/log_in');
         }
     }
+    // public function logoutUser()
+    // {
+
+    //     if (session_destroy()) {
+    //         redirect('user/log_in');
+    //     }
+    // }
 
 }
