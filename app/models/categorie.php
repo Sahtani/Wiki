@@ -1,5 +1,5 @@
 <?php 
-class Admin {
+class Categorie {
     private $id;
     private $name;
     private $dateCreation;

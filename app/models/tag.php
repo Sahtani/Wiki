@@ -98,4 +98,14 @@ class Tag{
             return $e->getMessage();
         }
     }
+    public function add_wiki_tags($id, $tags)
+    {
+        foreach ($tags as $tag) {
+            $stmt=$this->conn->prepare("INSERT INTO tag_wiki (idwiki,idtag) VALUES (:wiki_id,:tag_id)");
+            $stmt->bindParam(':wiki_id', $id);
+            $stmt->bindParam(':tag_id', $tag);
+            $stmt->execute();
+        }
+        echo "Record inserted successfully ";
+    }
 }

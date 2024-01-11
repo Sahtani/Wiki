@@ -1,36 +1,58 @@
 <?php require_once 'includes/headfrom.php' ?>
-<div class="min-h-screen bg-gray-100 p-0 sm:p-12 md:w-1/2 w-full mx-10 mt-5
+<?php
+$tags = $this->view_data['tag'];
+$cats = $this->view_data['cat'];
+
+?>
+<div class="min-h-screen bg-gray-100 p-0 sm:p-12 md:w-1/2 w-full mx-10 mt-14 
 ">
-  <div class="mx-auto max-w-md px-6  p-10 md:py-12 bg-white border-0 shadow-lg sm:rounded-3xl">
-    <h1 class="text-2xl font-bold md:mb-8 flex flex-col items-center">Add Task </h1>
-    <form action="<?= BASE_URL ?>/task/add_Task" class=space-y-6" method="post">
+  <div class="mx-auto mY-4 max-w-md px-6  p-10 md:py-12 bg-white border-0 shadow-lg rounded-3xl sm:rounded-3xl">
+    <h1 class="text-2xl font-serif font-bold  text-mr flex flex-col items-center">Add Wiki </h1>
+    <form action="<?= BASE_URL ?>/wiki/add_wiki" class=space-y-6" method="post">
 
       <div>
-        <label for="task-title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task Title</label>
-        <input type="text" name="task-title" id="task-title" class="bg-gray-50 border shadow border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white  dark:placeholder-gray-400" placeholder="Task Title" required>
+        <label for="task-title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wiki Title</label>
+        <input type="text" name="title" id="title" class="bg-gray-50 border shadow border-beige text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white  dark:placeholder-gray-400" placeholder="Wiki Title" required>
       </div>
       <div>
-        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Task Description</label>
-        <textarea name="task-description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300  dark:bg-white   shadow dark:placeholder-gray-400" placeholder="Write your task description here..."></textarea>
+        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wiki Content</label>
+        <textarea name="content" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-beige  dark:bg-white   shadow dark:placeholder-gray-400" placeholder="Write your  content  here..."></textarea>
       </div>
-      <div>
-        <label for="lists" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select an option</label>
-        <select name="status" id="lists" class="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5  shadow dark:placeholder-gray-400 ">
-          <option value="to do">To Do</option>
-          <option value="in progress">In Progress</option>
-          <option value="done">Done</option>
-        </select>
-      </div>
+
       <div>
         <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
         <div class="relative">
 
-          <input name="date" type="date" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full pl-10 py-2.5 px-1  dark:bg-white shadow dark:placeholder-gray-400  " placeholder="Select date">
+          <input name="date" type="date" class="bg-white border border-beige text-gray-900 text-sm rounded-lg block w-full pl-2 py-2.5 px-1  dark:bg-white shadow dark:placeholder-gray-400  " placeholder="Select date">
         </div>
       </div>
+      <div>
+        <label for="lists" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select an option</label>
+        <select name="cat" id="lists" class="border border-beige text-gray-900 text-sm rounded-lg block w-full p-2.5  shadow dark:placeholder-gray-400 ">
+          <option class="mx-10" value="" selected disabled>Select Categorie</option>
+          <?php foreach ($cats as $cat) : ?>
+            <option value="<?= $cat['id']; ?>"><?= $cat['name']; ?> </option>
+          <?php endforeach; ?>
+
+        </select>
+      </div>
+      <div>
+        <label for="lists" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select an option</label>
+        <select name="listbox[]" multiple="multiple" class="border border-beige text-gray-900 text-sm rounded-lg block w-full p-2.5  shadow dark:placeholder-gray-400 ">
+          <option value="" selected disabled>Select tag</option>
+          <?php foreach ($tags as $tag) : ?>
+            <option value="<?= $tag['idtag']; ?>"><?= $tag['name']; ?> </option>
+          <?php endforeach; ?>
+
+        </select>
+
+
+
+        </select>
+      </div>
       <div class="flex justify-between gap-4 mt-6">
-        <button name="submit" type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add Task</button>
-        <a href="<?= BASE_URL ?>/task/task/" class="w-full text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm md:px-5 px-2 md:py-2.5  p-1 text-center">Cancel</a>
+        <button name="submitwiki" type="submit" class="w-full text-white bg-mrbg hover:bg-mr font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add wiki</button>
+        <a href="<?= BASE_URL ?>/wiki/mywikis" class="w-full text-mr bg-verblanc  font-medium rounded-lg text-sm md:px-5 px-2 md:py-2.5  p-1 text-center">Cancel</a>
       </div>
     </form>
   </div>

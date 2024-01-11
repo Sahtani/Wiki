@@ -1,5 +1,5 @@
 <?php
-class AdminController extends Controller
+class CategorieController extends Controller
 {
     public function index($error = "")
     {
@@ -14,7 +14,7 @@ class AdminController extends Controller
     // display category
     public function displayCategory()
     {
-        $this->model("admin");
+        $this->model("categorie");
         $category = $this->model->getCategory();
         if ($category) {
             return $category;
@@ -35,7 +35,7 @@ class AdminController extends Controller
                     "date" => $date,
                 ];
 
-                $this->model("admin");
+                $this->model("categorie");
                 $this->setCategoryData($data);
                 $cat = $this->model->getCategoryrow();
                 if ($cat) {
@@ -60,12 +60,12 @@ class AdminController extends Controller
                 "name" => $this->validateData($name),
                 "date" => $this->validateData($date),
             ];
-            $this->model("admin");
+            $this->model("categorie");
             $this->setCategoryDataup($data);
 
             $result = $this->model->updateCategory();
             if ($result) {
-                redirect("admin");
+                redirect("categorie");
             } else {
                 $this->index("Failed to update categorie.");
             }
@@ -74,7 +74,7 @@ class AdminController extends Controller
     // delete category
     public function delete_category($id)
     {
-        $this->model("admin");
+        $this->model("categorie");
         $this->model->setid($id);
         $result = $this->model->deleteCategory();
         redirect("admin");
@@ -84,14 +84,14 @@ class AdminController extends Controller
     // set all data
     public function setCategoryData($data)
     {
-        $this->model("admin");
+        $this->model("categorie");
 
         $this->model->setName($data["name"]);
         $this->model->setDate($data["date"]);
     }
     public function setCategoryDataup($data)
     {
-        $this->model("admin");
+        $this->model("categorie");
         $this->model->setid($data["id"]);
         $this->model->setName($data["name"]);
         $this->model->setDate($data["date"]);
