@@ -102,9 +102,29 @@ $role=$this->view_data["role"];
                     </div>
                     <input type="text" id="search-navbar" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  " placeholder="Search...">
                 </div>
-<?php if($role==="user"){
+<?php if($role==="author"){
 
-echo '
+echo
+    ' <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border   md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+     <li>
+                        <a href="' . BASE_URL . '/wiki/" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Home</a>
+
+                    </li>
+     <li>
+                        <a href="' . BASE_URL . '/categorie/lastcat" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Categories</a>
+
+                    </li>
+                    <li>
+                        <a href="' . BASE_URL . '/wiki/Mywikis" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">My wikis</a>
+
+                    </li>
+                    <li>
+                       <a href="' . BASE_URL . '/user/logout" type="button" class="text-mr md:bg-moinbeige font-serif hover:text-white hover:bg-mr from-moinbeige to-beige focus:outline-none  font-bold rounded-lg text-sm px-5 py-2.5 text-center">Log Out</a>
+                    </li>
+                </ul>';
+               
+}else{
+                    echo '
                 <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border   md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                     <li>
                         <a href="' . BASE_URL . '/user/log_in" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Log In</a>
@@ -115,18 +135,7 @@ echo '
                     </li>
                 </ul>
                 ';}
-                elseif($role === "author"){
-                    echo '
-                <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border   md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-                    <li>
-                        <a href="' . BASE_URL . '/wiki/Mywikis" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">My wikis</a>
-
-                    </li>
-                    <li>
-                       <a href="' . BASE_URL . '/user/logout" type="button" class="text-mr md:bg-moinbeige font-serif hover:text-white hover:bg-mr from-moinbeige to-beige focus:outline-none  font-bold rounded-lg text-sm px-5 py-2.5 text-center">Log Out</a>
-                    </li>
-                </ul>';
-            }
+            
                     ?>
             </div>
        

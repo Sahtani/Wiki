@@ -1,7 +1,7 @@
 <?php
 class App
 {
-    protected $controller = 'UserController';
+    protected $controller = 'WikiController';
     protected $method = 'index';
     protected $params = [];
 
@@ -20,7 +20,7 @@ class App
         $request = trim($_SERVER['REQUEST_URI'], '/');
         if (!empty($request)) {
             $url = explode('/', $request);
-            $this->controller = isset($url[2]) ?  ucfirst($url[2]) . 'Controller' : 'UserController';
+            $this->controller = isset($url[2]) ?  ucfirst($url[2]) . 'Controller' : 'WikiController';
             $this->method = isset($url[3]) ? $url[3] : 'index';
             unset($url[0], $url[1], $url[2], $url[3]);
             $this->params = !empty($url) ? array_values($url) : [];

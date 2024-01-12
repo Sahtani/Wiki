@@ -80,8 +80,8 @@ class UserController extends Controller
                 $_SESSION["role"] = $user["role"];
               
                 if($user['role']=='admin'){
-                     redirect("admin"); 
-                }elseif($user['role'] == 'user'|| $user['role'] == 'author'){
+                     redirect("categorie"); 
+                }elseif($user['role'] == 'author'){
                     redirect("wiki"); 
                 }
 
@@ -112,7 +112,7 @@ class UserController extends Controller
     {
 
         if (session_destroy()) {
-            redirect('user/log_in');
+            redirect('wiki');
         }
     }
     // public function logoutUser()

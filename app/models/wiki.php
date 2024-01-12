@@ -80,11 +80,29 @@ class Wiki
     {
         $this->iduser = $iduser;
     }
-   public function getWiki($id){
+    public function getWiki($id)
+    {
 
         try {
-            $stmt = $this->conn->prepare("SELECT idwiki, title,content, wiki.dateCreation, c.id, c.name FROM wiki inner join `category` as c on c.id=wiki.idcat WHERE iduser=:id");
+            $stmt = $this->conn->prepare("SELECT * FROM wiki INNER JOIN user `category` AS c ON c.id = wiki.idcat WHERE iduser = :id ORDER BY wiki.dateCreation DESC;");
             $stmt->bindParam(":id", $id);
+            $stmt->execute();
+            $data = $stmt->fetchAll();
+
+            if (count($data) > 0) {
+                return $data;
+            } else {
+                return [];
+            }
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function getAllWiki()
+    {
+
+        try {
+            $stmt = $this->conn->prepare("SELECT idwiki, title,content, wiki.dateCreation, c.id, c.name FROM wiki inner join `category` as c on c.id=wiki.idcat");
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
                 return $stmt->fetchAll();
@@ -95,6 +113,26 @@ class Wiki
             return $e->getMessage();
         }
     }
+  public function getWikiByid($idwiki)
+{
+    try {
+        $stmt = $this->conn->prepare("
+            SELECT *
+            FROM wiki
+            INNER JOIN user ON wiki.iduser = user.idUser
+            INNER JOIN category AS c ON c.id = wiki.idcat
+            WHERE wiki.idwiki = :idwiki
+            ORDER BY wiki.dateCreation DESC
+        ");
+        $stmt->bindParam(":idwiki", $idwiki);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        return ($result !== false) ? $result : false;
+    } catch (PDOException $e) {
+            return $e->getMessage();}}
+
     // public function getcatwiki(){
     //     try {
     //         $stmt = $this->conn->prepare("SELECT c.name as n FROM wiki inner join `category` as c on c.id=wiki.idcat");
@@ -128,22 +166,23 @@ class Wiki
     }
 
 
-    public function getWikiTags() {
+    public function getWikiTags($id)
+    {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM `tag_wiki` as tw LEFT JOIN tag as t on tw.idtag = t.idtag WHERE tw.idwiki =:id;");
-            $stmt->bindParam(":id", $this->idwiki);
+            $stmt->bindParam(":id", $id);
             $stmt->execute();
             $data = $stmt->fetchAll();
             if (count($data) > 0) {
                 return $data;
-            }else {
+            } else {
                 return [];
             }
-        }catch(PDOException $e) {
+        } catch (PDOException $e) {
             return $e->getMessage();
         }
     }
-   
+
     public function addWiki()
     {
 
@@ -157,14 +196,15 @@ class Wiki
 
 
 
-        if ($stmt->execute()) { 
+        if ($stmt->execute()) {
             $lastInsertId = $this->conn->lastInsertId();
             return $lastInsertId;
         } else {
             return false;
         }
     }
-    public function updateWiki(){
+    public function updateWiki()
+    {
         $stmt = $this->conn->prepare('UPDATE  wiki SET title=:title, content=:content,dateCreation=:date where iduser=:user_id and idcat=:category_id and idwiki=:id');
         $stmt->bindParam(":id", $this->idwiki);
         $stmt->bindParam(':title', $this->title);
@@ -173,12 +213,13 @@ class Wiki
         $stmt->bindParam(':user_id', $this->iduser);
         $stmt->bindParam(':category_id', $this->idcat);
         if ($stmt->execute()) {
-           return true;
+            return true;
         } else {
             return false;
         }
     }
-    public function deleteWiki(){
+    public function deleteWiki()
+    {
         try {
             $stmt = $this->conn->prepare("DELETE FROM wiki WHERE idwiki =:id");
             $stmt->bindParam(":id", $this->idwiki);
@@ -186,6 +227,5 @@ class Wiki
         } catch (PDOException $e) {
             return $e->getMessage();
         }
-
     }
 }

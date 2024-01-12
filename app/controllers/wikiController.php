@@ -1,56 +1,73 @@
-<?php class WikiController extends Controller
+<?php
+class WikiController extends Controller
 {
-      private $wikis;
-      private $user;
-      private $category;
-      private $tags;
-
       public function index($error = "")
       {
-            if (isUserLogged()) {
+            if (isset($_SESSION["role"])) {
                   $role = $_SESSION["role"];
-                  $this->view("home/home", "", ["error" => $error, "role" => $role]);
-                  $this->view->render();
+            } else $role = "";
+            $this->view("home/home", "", ["error" => $error, "role" => $role, "Awikis" => $this->displayAllWikis()]);
+            $this->view->render();
+      }
+      public function wikiAdmin($error = ""){
+            if (isUserLogged()) {
+            if (isset($_SESSION["role"])) {
+                  $role = $_SESSION["role"];
+            } else $role = "";
+            $this->view("admin/wikiAdmin", "", ["error" => $error, "role" => $role, "Awikis" => $this->displayAllWikis()]);
+            $this->view->render();
             } else {
-                  redirect('user/log_in');
+                  redirect('wiki');
             }
       }
+
       public function Mywikis($error = "")
       {
             if (isUserLogged()) {
                   $user_id = $_SESSION["user-id"];
                   $role = $_SESSION["role"];
 
-                  // Assuming $this->model is an instance of your Wiki model class
                   $this->model('wiki');
-
                   $wikis = $this->model->getWiki($user_id);
-
                   $wikisWithTags = [];
-
                   foreach ($wikis as $wiki) {
                         $tags = $this->model->getWikiTags($wiki['idwiki']);
-                        $wiki['tags'] = $tags;
+                        $wiki['wikitags'] = $tags;
                         $wikisWithTags[] = $wiki;
                   }
 
                   $this->view("home/mywikis", "", ["error" => $error, "role" => $role, "wikis" => $wikisWithTags]);
                   $this->view->render();
             } else {
-                  redirect('user/log_in');
+                  redirect('wiki');
             }
       }
 
-    
+
+
       public function displayWikis($user_id)
       {
             $user_id = $_SESSION["user-id"];
             $this->model('wiki');
             $wikis = $this->model->getWikis($user_id);
-          
-                  return $wikis;
+
+            return $wikis;
             // } else $this->index("add new wiki");
       }
+      public function displayAllWikis()
+      {
+            $this->model('wiki');
+            $wikis = $this->model->getAllWiki();
+            $wikisWithTags = [];
+
+            foreach ($wikis as $wiki) {
+                  $tags = $this->model->getWikiTags($wiki['idwiki']);
+                  $wiki['wikitags'] = $tags;
+                  $wikisWithTags[] = $wiki;
+            }
+            return $wikisWithTags;
+      }
+
 
       public function formwiki($error = "")
       {
@@ -63,7 +80,7 @@
             $this->view("home/addwiki", "", ["error" => $error, "cat" => $category, "tag" => $tag]);
             $this->view->render();
       }
-      public function formwikiUpdate($idwiki,$error = "" )
+      public function formwikiUpdate($idwiki, $error = "")
       {
             if (isUserLogged()) {
                   $this->model('wiki');
@@ -75,7 +92,7 @@
                   $this->model('tag');
                   $tag = $this->model->getTags();
 
-                  $this->view("home/upwiki", "", ["error" => $error, "wiki" => $wiki,"cat" => $category, "tag" => $tag]);
+                  $this->view("home/upwiki", "", ["error" => $error, "wiki" => $wiki, "cat" => $category, "tag" => $tag]);
                   $this->view->render();
             }
       }
@@ -147,17 +164,31 @@
             }
       }
 
+public function archive_wiki(){
 
+}
 
       public function delete_wiki($id)
-      {    
-    
-        $this->model("wiki");
-        $this->model->setIdwiki($id);
-        $result = $this->model->deleteWiki();
-        redirect("wiki/mywikis");
-    
+      {
+
+            $this->model("wiki");
+            $this->model->setIdwiki($id);
+            $result = $this->model->deleteWiki();
+            redirect("wiki/mywikis");
       }
+      public function signlepage($idwiki, $error = "")
+      {
+            if (isset($_SESSION["role"])) {
+                  $role = $_SESSION["role"];
+            } else $role = "";
+            $this->model('wiki');
+            $wiki = $this->model->getWikiByid($idwiki);
+            $wikiTags = $this->model->getWikiTags($idwiki);
+            $wiki["wikitags"] = $wikiTags;
+            $this->view("home/single_page", "", ["error" => $error, "role" => $role, "wiki" => $wiki]);
+            $this->view->render();
+      }
+
       public function setData($data)
       {
             $this->model('wiki');
