@@ -5,13 +5,6 @@
       private $category;
       private $tags;
 
-      public function __construct()
-      {
-
-            $this->user = $this->model('user');
-
-            $this->tags = $this->model('tag');
-      }
       public function index($error = "")
       {
             if (isUserLogged()) {
@@ -27,13 +20,28 @@
             if (isUserLogged()) {
                   $user_id = $_SESSION["user-id"];
                   $role = $_SESSION["role"];
-                  $wikis = $this->displayWikis($user_id);
-                  $this->view("home/mywikis", "", ["error" => $error, "role" => $role, "wikis" => $wikis]);
+
+                  // Assuming $this->model is an instance of your Wiki model class
+                  $this->model('wiki');
+
+                  $wikis = $this->model->getWiki($user_id);
+
+                  $wikisWithTags = [];
+
+                  foreach ($wikis as $wiki) {
+                        $tags = $this->model->getWikiTags($wiki['idwiki']);
+                        $wiki['tags'] = $tags;
+                        $wikisWithTags[] = $wiki;
+                  }
+
+                  $this->view("home/mywikis", "", ["error" => $error, "role" => $role, "wikis" => $wikisWithTags]);
                   $this->view->render();
             } else {
                   redirect('user/log_in');
             }
       }
+
+    
       public function displayWikis($user_id)
       {
             $user_id = $_SESSION["user-id"];
@@ -123,8 +131,9 @@
                         "iduser" => $this->validateData($iduser),
                   ];
                   $this->model('wiki');
+                  $this->model->setIdwiki($data["id"]);
                   $this->setData($data);
-                  $this->model->getWiki();
+
                   $lastidWiki = $this->model->updateWiki();
                   if ($lastidWiki) {
                         if (isset($_POST['listbox'])) {

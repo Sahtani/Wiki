@@ -83,12 +83,11 @@ class Wiki
    public function getWiki($id){
 
         try {
-            // $stmt = $this->conn->prepare("SELECT * FROM wiki WHERE idwiki =:id");
-            $stmt = $this->conn->prepare("SELECT idwiki, title,content, wiki.dateCreation, c.id, c.name FROM wiki inner join `category` as c on c.id=wiki.idcat WHERE idwiki=:id");
+            $stmt = $this->conn->prepare("SELECT idwiki, title,content, wiki.dateCreation, c.id, c.name FROM wiki inner join `category` as c on c.id=wiki.idcat WHERE iduser=:id");
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
-                return $stmt->fetch();
+                return $stmt->fetchAll();
             } else {
                 return false;
             }
@@ -96,6 +95,20 @@ class Wiki
             return $e->getMessage();
         }
     }
+    // public function getcatwiki(){
+    //     try {
+    //         $stmt = $this->conn->prepare("SELECT c.name as n FROM wiki inner join `category` as c on c.id=wiki.idcat");
+    //         // $stmt->bindParam(":id", $id);
+    //         $stmt->execute();
+    //         if ($stmt->rowCount() > 0) {
+    //             return $stmt->fetchAll();
+    //         } else {
+    //             return false;
+    //         }
+    //     } catch (PDOException $e) {
+    //         return $e->getMessage();
+    //     }
+    // }
     public function getWikis($user_id)
     {
         try {
@@ -115,10 +128,10 @@ class Wiki
     }
 
 
-    public function getWikiTags($id) {
+    public function getWikiTags() {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM `tag_wiki` as tw LEFT JOIN tag as t on tw.idtag = t.idtag WHERE tw.idwiki =:id;");
-            $stmt->bindParam(":id", $id);
+            $stmt->bindParam(":id", $this->idwiki);
             $stmt->execute();
             $data = $stmt->fetchAll();
             if (count($data) > 0) {
@@ -151,8 +164,9 @@ class Wiki
             return false;
         }
     }
-    public function updateWiki($id){
-        $stmt = $this->conn->prepare('UPDATE  wiki SET title=:title, content=:content,dateCreation=:date where iduser=:user_id,idcat=:category_id');
+    public function updateWiki(){
+        $stmt = $this->conn->prepare('UPDATE  wiki SET title=:title, content=:content,dateCreation=:date where iduser=:user_id and idcat=:category_id and idwiki=:id');
+        $stmt->bindParam(":id", $this->idwiki);
         $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':content', $this->content);
         $stmt->bindParam(':date', $this->date);

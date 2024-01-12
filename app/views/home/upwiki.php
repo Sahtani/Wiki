@@ -4,9 +4,9 @@ $tags = $this->view_data['tag'];
 $cats = $this->view_data['cat'];
 $wiki = $this->view_data["wiki"];
 // $wikitags = $wiki["wikitags"];
- 
+
 // $commontags = array_intersect($tags, $wiki["wikitags"]);
-                                            
+
 ?>
 <div class="min-h-screen bg-gray-100 p-0 sm:p-12 md:w-1/2 w-full mx-10 mt-14 
 ">
@@ -46,10 +46,10 @@ $wiki = $this->view_data["wiki"];
                 <select name="listbox[]" multiple="multiple" class="border border-beige text-gray-900 text-sm rounded-lg block w-full p-2.5  shadow dark:placeholder-gray-400 ">
                     <option value="" disabled>Select tag</option>
                     <?php
-                  
-                    foreach ($tags as  $tag) {  
+
+                    foreach ($tags as  $tag) {
                     ?>
-                        <option value="<?= $tag['idtag']; ?>" <?= (isset($wikitags[$index]) && $tag["name"] !== $wikitags[$index]["name"]) ? "selected" : "" ?>><?= $tag['name']; ?></option>
+                        <option value="<?= $tag['idtag']; ?>" ?><?= $tag['name']; ?></option>
 
                     <?php }; ?>
 
@@ -60,7 +60,7 @@ $wiki = $this->view_data["wiki"];
                 </select>
             </div>
             <div class="flex justify-between gap-4 mt-6">
-                <button name="submitwiki" type="submit" class="w-full text-white bg-mrbg hover:bg-mr font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add wiki</button>
+                <button name="submitupdate" type="submit" class="w-full text-white bg-mrbg hover:bg-mr font-medium rounded-lg text-sm px-5 py-2.5 text-center">Edit</button>
                 <a href="<?= BASE_URL ?>/wiki/mywikis" class="w-full text-mr bg-verblanc  font-medium rounded-lg text-sm md:px-5 px-2 md:py-2.5  p-1 text-center">Cancel</a>
             </div>
         </form>
