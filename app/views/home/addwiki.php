@@ -18,14 +18,6 @@ $cats = $this->view_data['cat'];
         <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wiki Content</label>
         <textarea name="content" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-beige  dark:bg-white   shadow dark:placeholder-gray-400" placeholder="Write your  content  here..."></textarea>
       </div>
-
-      <div>
-        <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
-        <div class="relative">
-
-          <input name="date" type="date" class="bg-white border border-beige text-gray-900 text-sm rounded-lg block w-full pl-2 py-2.5 px-1  dark:bg-white shadow dark:placeholder-gray-400  " placeholder="Select date">
-        </div>
-      </div>
       <div>
         <label for="lists" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select an option</label>
         <select name="cat" id="lists" class="border border-beige text-gray-900 text-sm rounded-lg block w-full p-2.5  shadow dark:placeholder-gray-400 ">

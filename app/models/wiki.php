@@ -84,7 +84,13 @@ class Wiki
     {
 
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM wiki INNER JOIN user `category` AS c ON c.id = wiki.idcat WHERE iduser = :id ORDER BY wiki.dateCreation DESC;");
+            $stmt = $this->conn->prepare("SELECT *
+FROM wiki
+INNER JOIN user ON wiki.iduser = user.idUser
+INNER JOIN category AS c ON c.id = wiki.idcat
+WHERE wiki.iduser = :id
+ORDER BY wiki.dateCreation DESC;
+");
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             $data = $stmt->fetchAll();
@@ -100,23 +106,22 @@ class Wiki
     }
     public function getAllWiki()
     {
-
         try {
             $stmt = $this->conn->prepare("SELECT idwiki, title,content, wiki.dateCreation, c.id, c.name FROM wiki inner join `category` as c on c.id=wiki.idcat");
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
                 return $stmt->fetchAll();
             } else {
-                return false;
+                return [];
             }
         } catch (PDOException $e) {
             return $e->getMessage();
         }
     }
-  public function getWikiByid($idwiki)
-{
-    try {
-        $stmt = $this->conn->prepare("
+    public function getWikiByid($idwiki)
+    {
+        try {
+            $stmt = $this->conn->prepare("
             SELECT *
             FROM wiki
             INNER JOIN user ON wiki.iduser = user.idUser
@@ -124,29 +129,16 @@ class Wiki
             WHERE wiki.idwiki = :idwiki
             ORDER BY wiki.dateCreation DESC
         ");
-        $stmt->bindParam(":idwiki", $idwiki);
-        $stmt->execute();
+            $stmt->bindParam(":idwiki", $idwiki);
+            $stmt->execute();
 
-        $result = $stmt->fetch();
+            $result = $stmt->fetch();
 
-        return ($result !== false) ? $result : false;
-    } catch (PDOException $e) {
-            return $e->getMessage();}}
-
-    // public function getcatwiki(){
-    //     try {
-    //         $stmt = $this->conn->prepare("SELECT c.name as n FROM wiki inner join `category` as c on c.id=wiki.idcat");
-    //         // $stmt->bindParam(":id", $id);
-    //         $stmt->execute();
-    //         if ($stmt->rowCount() > 0) {
-    //             return $stmt->fetchAll();
-    //         } else {
-    //             return false;
-    //         }
-    //     } catch (PDOException $e) {
-    //         return $e->getMessage();
-    //     }
-    // }
+            return ($result !== false) ? $result : false;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
     public function getWikis($user_id)
     {
         try {
@@ -187,10 +179,9 @@ class Wiki
     {
 
 
-        $stmt = $this->conn->prepare('INSERT INTO wiki (title, content,dateCreation,iduser,idcat) VALUES (:title,:content,:date,:user_id,:category_id)');
+        $stmt = $this->conn->prepare('INSERT INTO wiki (title, content,iduser,idcat) VALUES (:title,:content,:user_id,:category_id)');
         $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':content', $this->content);
-        $stmt->bindParam(':date', $this->date);
         $stmt->bindParam(':user_id', $this->iduser);
         $stmt->bindParam(':category_id', $this->idcat);
 

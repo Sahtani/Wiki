@@ -102,15 +102,11 @@ class WikiController extends Controller
             if (isset($_POST['submitwiki'])) {
                   $title = $_POST["title"];
                   $content = $_POST["content"];
-                  $date = $_POST["date"];
                   $idcat = $_POST["cat"];
                   $iduser = $_SESSION["user-id"];
-
-
                   $data = [
                         "title" => $this->validateData($title),
                         "content" => $this->validateData($content),
-                        "date" => $this->validateData($date),
                         "idcat" => $this->validateData($idcat),
                         "iduser" => $this->validateData($iduser),
                   ];
@@ -195,7 +191,6 @@ public function archive_wiki(){
             // $this->model->setIdwiki($idwiki);
             $this->model->setTitle($data["title"]);
             $this->model->setContent($data["content"]);
-            $this->model->setDate($data["date"]);
             $this->model->setIdcat($data["idcat"]);
             $this->model->setIduser($data["iduser"]);
       }
