@@ -6,7 +6,8 @@ class WikiController extends Controller
             if (isset($_SESSION["role"])) {
                   $role = $_SESSION["role"];
             } else $role = "";
-            $this->view("home/home", "", ["error" => $error, "role" => $role, "Awikis" => $this->displayAllWikis()]);
+            $latestWiki=$this->displayLatestWiki();
+            $this->view("home/home", "", ["error" => $error, "role" => $role, "Awikis" => $this->displayAllWikis(),"lastWiki"=> $latestWiki]);
             $this->view->render();
       }
       public function wikiAdmin($error = ""){
@@ -42,17 +43,38 @@ class WikiController extends Controller
                   redirect('wiki');
             }
       }
+      public function displayLastCategory($error="")
+      {
+            $role = $_SESSION["role"];
+           
+            $this->model("categorie");
+            $category = $this->model->getLatestCategory();
+          
+                
+            $this->view("home/categorie", "", ["error" => $error, "role" => $role, "categorie" => $category]);
+            $this->view->render();
+      }
+      public function displayLatestWiki()
+      {
+            $this->model('wiki');
+            $wikis = $this->model->getLatestWiki();
+             $LastwikisWithTags = [];
 
+            foreach ($wikis as $wiki) {
+                  $tags = $this->model->getWikiTags($wiki['idwiki']);
+                  $wiki['wikitagsLast'] = $tags;
+                  $LastwikisWithTags[] = $wiki;
+            }
+            return $LastwikisWithTags;
+      }
 
-
+      
       public function displayWikis($user_id)
       {
             $user_id = $_SESSION["user-id"];
             $this->model('wiki');
             $wikis = $this->model->getWikis($user_id);
-
             return $wikis;
-            // } else $this->index("add new wiki");
       }
       public function displayAllWikis()
       {

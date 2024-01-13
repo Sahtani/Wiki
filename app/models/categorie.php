@@ -53,12 +53,26 @@ public function getCategory(){
         }
 
 }
+public function getLatestCategory(){
+    
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM category order by dateCreation limit 4");
+            $stmt->execute();
+            $data = $stmt->fetchAll();
+            if (count($data) > 0) {
+                return $data;
+            }
+            
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+
+}
     public function addCategory()
     {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO category (name, dateCreation) VALUES (:name, :dateCreation)");
+            $stmt = $this->conn->prepare("INSERT INTO category (namen) VALUES (:name)");
             $stmt->bindParam(":name", $this->name);
-            $stmt->bindParam(":dateCreation", $this->dateCreation);
             if( $stmt->execute()){
                 return true;
             } else {

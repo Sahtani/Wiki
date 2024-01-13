@@ -5,7 +5,7 @@ $wikitags = $wiki["wikitags"];
 
 ?>
 </div>
-<div class="bg-gray-100 px-10 py-12 font-[sans-serif]">
+<div class="bg-gray-100 px-10 py-12 font-[sans-serif] overflow-hidden">
     <div class="container mx-auto p-6 bg-white rounded-lg shadow-md">
         <a href="<?= BASE_URL ?>/wiki/Mywikis" title="Back to home page">
             <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 448 512">
@@ -16,9 +16,9 @@ $wikitags = $wiki["wikitags"];
             <div>
                 <img src="<?= BASE_URL_ASSETS ?>img/undraw_Publish_post_re_wmql.svg" alt="Image" class="rounded-md object-cover w-full h-full" />
             </div>
-            <div>
+            <div class="w-full">
                 <h2 class="text-3xl font-extrabold text-mr mb-4"><?= $wiki['title'] ?></h2>
-                <p class="text-gray-700 text-sm leading-6">
+                <p class="text-gray-700 text-sm   ">
                     <?= $wiki['content'] ?>
                 </p>
                 <ul class="list-disc text-sm text-gray-700 space-y-2 pl-4 mt-6">

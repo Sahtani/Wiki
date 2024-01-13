@@ -82,15 +82,8 @@ class Wiki
     }
     public function getWiki($id)
     {
-
         try {
-            $stmt = $this->conn->prepare("SELECT *
-FROM wiki
-INNER JOIN user ON wiki.iduser = user.idUser
-INNER JOIN category AS c ON c.id = wiki.idcat
-WHERE wiki.iduser = :id
-ORDER BY wiki.dateCreation DESC;
-");
+            $stmt = $this->conn->prepare("SELECT * FROM wiki INNER JOIN user ON wiki.iduser = user.idUser INNER JOIN category AS c ON c.id = wiki.idcat WHERE wiki.iduser = :id ORDER BY wiki.dateCreation DESC; ");
             $stmt->bindParam(":id", $id);
             $stmt->execute();
             $data = $stmt->fetchAll();
@@ -118,6 +111,26 @@ ORDER BY wiki.dateCreation DESC;
             return $e->getMessage();
         }
     }
+    public function getLatestWiki()
+    {
+        try {
+            $stmt = $this->conn->prepare("
+            SELECT *
+            FROM wiki
+            INNER JOIN user ON wiki.iduser = user.idUser
+            INNER JOIN category AS c ON c.id = wiki.idcat
+            ORDER BY wiki.dateCreation DESC
+            LIMIT 4
+        ");
+            $stmt->execute();
+            $results = $stmt->fetchAll();
+
+            return $results;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function getWikiByid($idwiki)
     {
         try {
@@ -215,6 +228,83 @@ ORDER BY wiki.dateCreation DESC;
             $stmt = $this->conn->prepare("DELETE FROM wiki WHERE idwiki =:id");
             $stmt->bindParam(":id", $this->idwiki);
             $stmt->execute();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function getTotalWikis()
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT COUNT(idwiki) as totalWikis FROM wiki');
+            $stmt->execute();
+            $data = $stmt->fetch();
+            return $data;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function getUserWithMostWikis()
+    {
+        try {
+            $stmt = $this->conn->prepare('
+    SELECT u.lastname ,u.firstname , COUNT(w.iduser) as wikiCount
+    FROM wiki w
+    JOIN user u ON w.iduser = u.idUser
+    GROUP BY w.iduser
+    ORDER BY wikiCount DESC
+    LIMIT 1;
+    ');
+            $stmt->execute();
+            $data = $stmt->fetch();
+            return $data;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getTotalTags()
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT COUNT(idtag) as totalTags FROM tag');
+            $stmt->execute();
+            $data = $stmt->fetch();
+            return $data;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function getTotalAuthors()
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT COUNT( idUser) as totalAuthors FROM user');
+            $stmt->execute();
+            $data = $stmt->fetch();
+            return $data;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function getTotalCategories()
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT COUNT(*) as totalCategories FROM category');
+            $data = $stmt->fetch();
+            return $data;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+    public function getMostUsedCategory()
+    {
+        try {
+            $stmt = $this->conn->prepare('SELECT categories.name, COUNT( categories.name) as number_used
+         from categories
+          join wikis on wikis.category_id=categories.category_id 
+          GROUP by categories.name
+           ORDER by number_used DESC 
+           LIMIT 1;');
+            $data = $stmt->fetch();
+            return $data;
         } catch (PDOException $e) {
             return $e->getMessage();
         }

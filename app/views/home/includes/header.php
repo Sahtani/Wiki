@@ -110,7 +110,7 @@ $role = $this->view_data["role"];
 
                     </li>
      <li>
-                        <a href="' . BASE_URL . '/categorie/lastcat" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Categories</a>
+                        <a href="' . BASE_URL . '/wiki/displayLastCategory" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Categories</a>
 
                     </li>
                     <li>

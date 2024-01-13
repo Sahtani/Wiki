@@ -22,28 +22,27 @@ class CategorieController extends Controller
             $this->index("No category ");
         }
     }
+    
     // addCategory
     public function add_category()
     {
         if (isset($_POST["submit-add"])) {
             $name = isset($_POST["name"]) ? $this->validateData($_POST["name"]) : null;
-            $date = isset($_POST["date"]) ? $this->validateData($_POST["date"]) : null;
 
-            if ($name !== null && $date !== null) {
+            if ($name !== null) {
                 $data = [
                     "name" => $name,
-                    "date" => $date,
                 ];
 
                 $this->model("categorie");
-                $this->setCategoryData($data);
+                $this->model->setName($data["name"]);
                 $cat = $this->model->getCategoryrow();
                 if ($cat) {
                     $this->index("This Category Already Exists!");
                     exit;
                 } else {
                     $this->model->addCategory();
-                    redirect("admin");
+                    redirect("categorie");
                 }
             }
         }
@@ -53,7 +52,7 @@ class CategorieController extends Controller
         if (isset($_POST["submit-edite"])) {
             $id = $_POST["id"];
             $name = $_POST["name"];
-            $date = $_POST["date"];
+            $date =date('Y-m-d H:i:s');;
 
             $data = [
                 "id" => $this->validateData($id),
@@ -77,18 +76,10 @@ class CategorieController extends Controller
         $this->model("categorie");
         $this->model->setid($id);
         $result = $this->model->deleteCategory();
-        redirect("admin");
+        redirect("categorie");
     }
-
 
     // set all data
-    public function setCategoryData($data)
-    {
-        $this->model("categorie");
-
-        $this->model->setName($data["name"]);
-        $this->model->setDate($data["date"]);
-    }
     public function setCategoryDataup($data)
     {
         $this->model("categorie");

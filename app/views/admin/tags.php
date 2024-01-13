@@ -102,12 +102,13 @@
                  </button>
              </div>
              <!-- Modal body -->
-             <form class="p-4 md:p-5" action="<?= BASE_URL ?>/tag/add_tag" method="post">
+             <form class=" addcat p-4 md:p-5" action="<?= BASE_URL ?>/tag/add_tag" method="post">
                  <div class="grid gap-4 mb-4 grid-cols-2">
                      <div class="col-span-2">
                          <input type="hidden" name="id" id="editCategorieId">
                          <label for="editName" class="block mb-2 text-sm font-medium text-gray-800">Name</label>
-                         <input type="text" name="name" id="editName" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400" placeholder="Tag name" required="">
+                         <input type="text" name="name" id="editName" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400" placeholder="Tag name">
+                         <span id="errorMessage" class="error-message text-xs text-red-500"></span>
                      </div>
                  </div>
                  <div class="flex items-center justify-center">
@@ -121,7 +122,7 @@
  </div>
  <!-- pop up delete -->
 
-<!-- 
+ <!-- 
  <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
      <div class="relative p-4 w-full max-w-md max-h-full">
          <div class="relative bg-verblanc rounded-lg shadow  ">
@@ -170,6 +171,7 @@
                          <input type="hidden" name="id" id="editCategorieId">
                          <label for="editName" class="block mb-2 text-sm font-medium text-gray-800">Name</label>
                          <input type="text" name="name" id="editName" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400" placeholder="Category name" required="">
+
                      </div>
                  </div>
                  <div class="flex items-center justify-center">
@@ -198,5 +200,7 @@
      }
  </script>
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
  </body>
+ <?php require_once 'includes/footer.php' ?>
+
+ </html>

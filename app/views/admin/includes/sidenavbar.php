@@ -6,7 +6,8 @@
     <title></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+  
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
@@ -69,6 +70,7 @@
                             <h1 class="font-extrabold font-serif text-3xl text-mr text-shadow cursor-pointer">Wiki&trade;</h1>
                         </div>
                     </div>
+
                 </div>
                 <div class="flex items-center">
                     <div class="flex items-center ms-3">
@@ -83,7 +85,7 @@
         </div>
     </nav>
 
-    <aside id="logo-sidebar" class="bg-verblanc fixed  top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+    <aside id="logo-sidebar" class="bg-verblanc fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
         <div class="h-full px-3 pb-4 overflow-y-auto bg-primary ">
             <ul class="space-y-2 font-medium">
                 <li class="min-w-max">
@@ -113,7 +115,7 @@
                     </a>
                 </li>
                 <li class="min-w-max">
-                    <a href="#" class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
+                    <a href="<?= BASE_URL ?>/statistic" class="group flex items-center space-x-4 rounded-md px-4 py-3 text-gray-600">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#583E26">
                             <path class="fill-current text-gray-600 group-hover:text-cyan-600" d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" />
                             <path class="fill-mr text-gray-300 group-hover:text-cyan-300" d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" />

@@ -8,7 +8,7 @@
      <div class="p-4 rounded-lg mt-14">
          <div class="grid md:grid-cols-2 grid-cols-1  gap-4 mb-4">
              <div class="w-full">
-                 <div class='max-w-md ml-6 shadow-xl w-full'>
+                 <div class='max-w-md md:ml-6 shadow-xl w-full'>
                      <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
 
 
@@ -23,7 +23,7 @@
                  </div>
              </div>
          </div>
-         <div class="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 px-4 pb-8 items-start  "> <?php
+         <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 px-4 pb-8 items-start  "> <?php
                                                                                                     if ($cats > 0) {
                                                                                                         foreach ($cats as $cat) {
 
@@ -33,9 +33,7 @@
                      <div class="  rounded bg-grey-light  flex-no-shrink w-70 p-2 mr-3">
                          <div class="relative flex flex-col items-start p-4 mt-3 bg-white rounded-lg cursor-pointer bg-opacity-90 group hover:bg-opacity-100 shadow-xl hover:shadow-2xl" draggable="true">
                              <button class="absolute top-0 right-0 flex items-center justify-center hidden w-5 h-5 mt-3 mr-2 text-gray-500 rounded hover:bg-gray-200 hover:text-gray-700 group-hover:flex">
-                                 <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                     <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                                 </svg>
+
                              </button>
                              <h4 class="mt-3 text-sm font-medium"><?= $cat["name"]
                                                                     ?></h4>
@@ -96,16 +94,13 @@
                  </button>
              </div>
              <!-- Modal body -->
-             <form class="p-4 md:p-5" action="<?= BASE_URL ?>/categorie/add_category" method="post">
+             <form class=" addcat p-4 md:p-5" action="<?= BASE_URL ?>/categorie/add_category" method="post">
                  <div class="grid gap-4 mb-4 grid-cols-2">
                      <div class="col-span-2">
                          <input type="hidden" name="id" id="editCategorieId">
                          <label for="editName" class="block mb-2 text-sm font-medium text-gray-800">Name</label>
-                         <input type="text" name="name" id="editName" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400" placeholder="Category name" required="">
-                     </div>
-                     <div class="col-span-2">
-                         <label for="date" class="block mb-2 text-sm font-medium text-gray-800">Creation date</label>
-                         <input type="date" name="date" id="date" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:border-gray-500 dark:placeholder-gray-400" required="">
+                         <input type="text" name="name" id="editName" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400" placeholder="Category name">
+                         <span id="errorMessage" class="error-message text-xs text-red-500"></span>
                      </div>
                  </div>
                  <div class="flex items-center justify-center">
@@ -139,17 +134,13 @@
                  </button>
              </div>
              <!-- Modal body -->
-             <form class="p-4 md:p-5" action="<?= BASE_URL ?>/categorie
-             /update_category" method="post">
+             <form class="p-4 md:p-5" action="<?= BASE_URL ?>/categorie/update_category" method="post">
                  <div class="grid gap-4 mb-4 grid-cols-2">
                      <div class="col-span-2">
                          <input type="hidden" name="id" id="editCategorieId">
                          <label for="editName" class="block mb-2 text-sm font-medium text-gray-800">Name</label>
                          <input type="text" name="name" id="editName" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400" placeholder="Category name" required="">
-                     </div>
-                     <div class="col-span-2">
-                         <label for="date" class="block mb-2 text-sm font-medium text-gray-800">Creation date</label>
-                         <input type="date" name="date" id="date" class="bg-white border focus:outline-none border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 dark:border-gray-500 dark:placeholder-gray-400" required="">
+
                      </div>
                  </div>
                  <div class="flex items-center justify-center">
@@ -161,23 +152,8 @@
          </div>
      </div>
  </div>
- <script>
-     document.querySelectorAll('.editCategorieButton').forEach(button => {
-         button.addEventListener('click', function() {
-             showEditCategorieForm(button);
-         });
-     });
 
-     function showEditCategorieForm(button) {
-         var editCategorieForm = document.getElementById('crud-modal');
-         if (editCategorieForm) {
-             console.log(editCategorieForm.querySelector('#editCategorieId'));
-             editCategorieForm.querySelector('#editCategorieId').value = button.dataset.categorieId || '';
-             editCategorieForm.querySelector('#editName').value = button.dataset.categorieName || '';
-             editCategorieForm.querySelector('#date').value = button.dataset.categorieDate || '';
-         }
-     }
- </script>
-
- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
  </body>
+ <?php require_once 'includes/footer.php' ?>
+
+ </html>

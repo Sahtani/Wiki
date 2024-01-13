@@ -28,27 +28,36 @@ $cats = $this->view_data['cat'];
 
         </select>
       </div>
-      <div>
+      <div class="w-full">
         <label for="lists" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select an option</label>
-        <select name="listbox[]" multiple="multiple" class="border border-beige text-gray-900 text-sm rounded-lg block w-full p-2.5  shadow dark:placeholder-gray-400 ">
-          <option value="" selected disabled>Select tag</option>
+        <select id="tags" name="listbox[]" class="form-control" multiple class="border border-beige text-gray-900 text-sm rounded-lg block w-full p-2.5  shadow dark:placeholder-gray-400 ">
+          <option class="mx-10 w-full" value="" selected disabled>Select Tag</option>
           <?php foreach ($tags as $tag) : ?>
-            <option value="<?= $tag['idtag']; ?>"><?= $tag['name']; ?> </option>
+            <option class=" w-full" value='<?= $tag['idtag']; ?>'><?= $tag['name']; ?></option>
           <?php endforeach; ?>
-
-        </select>
-
-
-
         </select>
       </div>
-      <div class="flex justify-between gap-4 mt-6">
+      <div class=" flex justify-between gap-4 mt-6">
         <button name="submitwiki" type="submit" class="w-full text-white bg-mrbg hover:bg-mr font-medium rounded-lg text-sm px-5 py-2.5 text-center">Add wiki</button>
         <a href="<?= BASE_URL ?>/wiki/mywikis" class="w-full text-mr bg-verblanc  font-medium rounded-lg text-sm md:px-5 px-2 md:py-2.5  p-1 text-center">Cancel</a>
       </div>
     </form>
   </div>
 </div>
+<script>
+  src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" >
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#tags').select2({
+      tags: false,
+      tokenSeparators: [',', ' ']
+    });
+  });
+</script>
 </body>
 
 </html>
