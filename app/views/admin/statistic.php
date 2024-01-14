@@ -2,8 +2,12 @@
  <?php
     $totalWiki = $this->view_data['totalWiki'];
     $user = $this->view_data['user'];
+
     $totalTag = $this->view_data['totalTag'];
     $author = $this->view_data['totalAuthor'];
+    $totalCat = $this->view_data['totalCat'];
+    $usedCat = $this->view_data['usedCat'];
+
 
     ?>
  <div class="p-4 sm:ml-64 bg-white">
@@ -19,13 +23,16 @@
                          <p class="text-sm text-gray-500 mt-2">here is the total of wikis in your dashboard</p>
                      </div>
                  </div>
-                 <div class="bg-white flex gap-6 max-lg:flex-col rounded-2xl md:p-8 p-6 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.2)]">
-                     <h3 class="text-5xl text-mr font-extrabold">1<span class="text-blue-600"></span></h3>
-                     <div>
-                         <p class="text-base font-bold "><?= $user['lastname'] . ' ' . $user['firstname'] ?></p>
-                         <p class="text-sm text-gray-500 mt-2">Author with the most wikis.</p>
+                 <?php if ($user > 0) { ?>
+                     <div class="bg-white flex gap-6 max-lg:flex-col rounded-2xl md:p-8 p-6 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.2)]">
+
+                         <h3 class="text-5xl text-mr font-extrabold">1<span class="text-blue-600"></span></h3>
+                         <div>
+                             <p class="text-base font-bold "><?= $user['lastname'] . ' ' . $user['firstname'] ?></p>
+                             <p class="text-sm text-gray-500 mt-2">Author with the most wikis.</p>
+                         </div>
                      </div>
-                 </div>
+                 <?php } ?>
                  <div class="bg-white flex gap-6 max-lg:flex-col rounded-2xl md:p-8 p-6 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.2)]">
                      <h3 class="text-5xl text-mr font-extrabold"><?= $totalTag["totalTags"] ?><span class="text-beige">T</span></h3>
                      <div>
@@ -34,26 +41,28 @@
                      </div>
                  </div>
                  <div class="bg-white flex gap-6 max-lg:flex-col rounded-2xl md:p-8 p-6 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.2)]">
-                     <h3 class="text-5xl text-mr font-extrabold"><?= $author["totalAuthors"] ?></h3>
+                     <h3 class="text-5xl text-mr font-extrabold"><?= $author["totalAuthors"] ?><span class="text-beige">A</span></h3>
                      <div>
                          <p class="text-base font-bold">All Authors</p>
                          <p class="text-sm text-gray-500 mt-2">here is the number of all authors.</p>
                      </div>
                  </div>
                  <div class="bg-white flex gap-6 max-lg:flex-col rounded-2xl md:p-8 p-6 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.2)]">
-                     <h3 class="text-5xl text-mr font-extrabold"><?= $author["totalAuthors"] ?></h3>
+                     <h3 class="text-5xl text-mr font-extrabold"><?= $totalCat["totalCategories"] ?><span class="text-beige">C</span></h3>
                      <div>
-                         <p class="text-base font-bold">All Authors</p>
-                         <p class="text-sm text-gray-500 mt-2">here is the number of all authors.</p>
+                         <p class="text-base font-bold">All Categories</p>
+                         <p class="text-sm text-gray-500 mt-2">here is the number of all categories.</p>
                      </div>
                  </div>
-                 <div class="bg-white flex gap-6 max-lg:flex-col rounded-2xl md:p-8 p-6 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.2)]">
-                     <h3 class="text-5xl text-mr font-extrabold"><?= $author["totalAuthors"] ?></h3>
-                     <div>
-                         <p class="text-base font-bold">All Authors</p>
-                         <p class="text-sm text-gray-500 mt-2">here is the number of all authors.</p>
+                 <?php if ($usedCat > 0) { ?>
+                     <div class="bg-white flex gap-6 max-lg:flex-col rounded-2xl md:p-8 p-6 shadow-[0_-4px_24px_-8px_rgba(0,0,0,0.2)]">
+                         <h3 class="text-5xl text-mr font-extrabold">1</h3>
+                         <div>
+                             <p class="text-base font-bold"><?= $usedCat["name"] ?></p>
+                             <p class="text-sm text-gray-500 mt-2">here is the The most used categories.</p>
+                         </div>
                      </div>
-                 </div>
+                 <?php } ?>
              </div>
          </div>
      </div>

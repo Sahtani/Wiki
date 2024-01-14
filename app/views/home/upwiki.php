@@ -8,7 +8,7 @@ $wiki = $this->view_data["wiki"];
 // $commontags = array_intersect($tags, $wiki["wikitags"]);
 
 ?>
-<div class="min-h-screen bg-gray-100 p-0 sm:p-12 md:w-1/2 w-full mx-10 mt-14 
+<div class="overflow-y bg-gray-100 p-0 sm:p-12 md:w-1/2 w-full mx-10 mt-14 
 ">
     <div class="mx-auto mY-4 max-w-md px-6  p-10 md:py-12 bg-white border-0 shadow-lg rounded-3xl sm:rounded-3xl">
         <h1 class="text-2xl font-serif font-bold  text-mr flex flex-col items-center">Edit Wiki </h1>
@@ -22,14 +22,6 @@ $wiki = $this->view_data["wiki"];
             <div>
                 <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wiki Content</label>
                 <textarea name="content" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-beige  dark:bg-white   shadow dark:placeholder-gray-400" placeholder="Write your  content  here..."><?= $wiki['content'] ?></textarea>
-            </div>
-
-            <div>
-                <label for="" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"></label>
-                <div class="relative">
-
-                    <input name="date" type="date" class="bg-white border border-beige text-gray-900 text-sm rounded-lg block w-full pl-2 py-2.5 px-1  dark:bg-white shadow dark:placeholder-gray-400  " placeholder="Select date" value="<?= $wiki['dateCreation'] ?>">
-                </div>
             </div>
             <div>
                 <label for="lists" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select an option</label>

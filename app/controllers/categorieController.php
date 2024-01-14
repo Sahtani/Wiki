@@ -26,9 +26,10 @@ class CategorieController extends Controller
     // addCategory
     public function add_category()
     {
-        if (isset($_POST["submit-add"])) {
+      
+        if (isset($_POST["submit-add"])) {   //die("hi"); 
             $name = isset($_POST["name"]) ? $this->validateData($_POST["name"]) : null;
-
+        
             if ($name !== null) {
                 $data = [
                     "name" => $name,

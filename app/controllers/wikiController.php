@@ -6,17 +6,19 @@ class WikiController extends Controller
             if (isset($_SESSION["role"])) {
                   $role = $_SESSION["role"];
             } else $role = "";
-            $latestWiki=$this->displayLatestWiki();
-            $this->view("home/home", "", ["error" => $error, "role" => $role, "Awikis" => $this->displayAllWikis(),"lastWiki"=> $latestWiki]);
+            $latestWiki = $this->displayLatestWiki();
+
+            $this->view("home/home", "", ["error" => $error, "role" => $role, "Awikis" => $this->displayAllWikis(), "lastWiki" => $latestWiki]);
             $this->view->render();
       }
-      public function wikiAdmin($error = ""){
+      public function wikiAdmin($error = "")
+      {
             if (isUserLogged()) {
-            if (isset($_SESSION["role"])) {
-                  $role = $_SESSION["role"];
-            } else $role = "";
-            $this->view("admin/wikiAdmin", "", ["error" => $error, "role" => $role, "Awikis" => $this->displayAllWikis()]);
-            $this->view->render();
+                  if (isset($_SESSION["role"])) {
+                        $role = $_SESSION["role"];
+                  } else $role = "";
+                  $this->view("admin/wikiAdmin", "", ["error" => $error, "role" => $role, "Awikis" => $this->displayAllWikis()]);
+                  $this->view->render();
             } else {
                   redirect('wiki');
             }
@@ -43,14 +45,16 @@ class WikiController extends Controller
                   redirect('wiki');
             }
       }
-      public function displayLastCategory($error="")
+      public function displayLastCategory($error = "")
       {
-            $role = $_SESSION["role"];
-           
+            if (isset($_SESSION["role"])) {
+                  $role = $_SESSION["role"];
+            } else $role = "";
+
             $this->model("categorie");
             $category = $this->model->getLatestCategory();
-          
-                
+
+
             $this->view("home/categorie", "", ["error" => $error, "role" => $role, "categorie" => $category]);
             $this->view->render();
       }
@@ -58,7 +62,7 @@ class WikiController extends Controller
       {
             $this->model('wiki');
             $wikis = $this->model->getLatestWiki();
-             $LastwikisWithTags = [];
+            $LastwikisWithTags = [];
 
             foreach ($wikis as $wiki) {
                   $tags = $this->model->getWikiTags($wiki['idwiki']);
@@ -68,7 +72,7 @@ class WikiController extends Controller
             return $LastwikisWithTags;
       }
 
-      
+
       public function displayWikis($user_id)
       {
             $user_id = $_SESSION["user-id"];
@@ -106,7 +110,7 @@ class WikiController extends Controller
       {
             if (isUserLogged()) {
                   $this->model('wiki');
-                  $wiki = $this->model->getWiki($idwiki);
+                  $wiki = $this->model->getWikiByid($idwiki);
                   $wikiTags = $this->model->getWikiTags($idwiki);
                   $wiki["wikitags"] = $wikiTags;
                   $this->model('categorie');
@@ -149,22 +153,25 @@ class WikiController extends Controller
       public function update_wiki()
       {
             if (isset($_POST['submitupdate'])) {
-
                   $title = $_POST["title"];
                   $content = $_POST["content"];
-                  $date = $_POST["date"];
                   $idcat = $_POST["cat"];
                   $iduser = $_SESSION["user-id"];
-
+                  $title = $this->validateData($title);
+                  $content = $this->validateData($content);
+                  $idcat = $this->validateData($idcat);
+                  $iduser = $this->validateData($iduser);
+                  if (empty($title) || empty($content) || empty($idcat) || empty($iduser)) {
+                  }
 
                   $data = [
                         "id" => $_POST['id'],
-                        "title" => $this->validateData($title),
-                        "content" => $this->validateData($content),
-                        "date" => $this->validateData($date),
-                        "idcat" => $this->validateData($idcat),
-                        "iduser" => $this->validateData($iduser),
+                        "title" => $title,
+                        "content" => $content,
+                        "idcat" => $idcat,
+                        "iduser" => $iduser,
                   ];
+
                   $this->model('wiki');
                   $this->model->setIdwiki($data["id"]);
                   $this->setData($data);
@@ -176,16 +183,44 @@ class WikiController extends Controller
                               $this->model('tag');
                               $this->model->add_wiki_tags($lastidWiki, $tag_id);
 
-                              redirect('wiki/Mywikis');
+                              redirect('wiki');
                         }
                   }
             }
       }
 
-public function archive_wiki(){
 
-}
+      public function archive_wiki($idWiki)
+      {
 
+            $this->model("wiki");
+            $this->model->setIdwiki($idWiki);
+            $result = $this->model->archiveWiki($idWiki);
+            if ($result) {
+                  redirect("wiki/wikiAdmin");
+            }
+      }
+      public function search_wiki()
+      {
+            extract($_POST);
+            if (isset($_SESSION["role"])) {
+                  $role = $_SESSION["role"];
+            } else $role = "";
+            if (isset($input)) {
+                  $this->model("wiki");
+                  $wikisSearch = $this->model->searchWiki($input);
+                  $wikisWithTagsearch = [];
+
+                  if($wikisSearch !== null) {
+                        foreach ($wikisSearch as $wiki) {
+                              $tags = $this->model->getWikiTags($wiki['idwiki']);
+                              $wiki['wikitagsearch'] = $tags;
+                              $wikisWithTagsearch[] = $wiki;
+                        }
+                  }
+                  echo json_encode($wikisWithTagsearch);
+            }
+      }
       public function delete_wiki($id)
       {
 

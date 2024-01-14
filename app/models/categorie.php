@@ -46,7 +46,7 @@ public function getCategory(){
             $data = $stmt->fetchAll();
             if (count($data) > 0) {
                 return $data;
-            }
+            }else return [];
             
         } catch (PDOException $e) {
             return $e->getMessage();
@@ -61,7 +61,7 @@ public function getLatestCategory(){
             $data = $stmt->fetchAll();
             if (count($data) > 0) {
                 return $data;
-            }
+            } else return [];
             
         } catch (PDOException $e) {
             return $e->getMessage();
@@ -71,7 +71,7 @@ public function getLatestCategory(){
     public function addCategory()
     {
         try {
-            $stmt = $this->conn->prepare("INSERT INTO category (namen) VALUES (:name)");
+            $stmt = $this->conn->prepare("INSERT INTO category (name) VALUES (:name)");
             $stmt->bindParam(":name", $this->name);
             if( $stmt->execute()){
                 return true;

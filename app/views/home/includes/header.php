@@ -11,6 +11,7 @@ $role = $this->view_data["role"];
     <title></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
 
@@ -56,7 +57,7 @@ $role = $this->view_data["role"];
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
 
-<body class="bg-white">
+<body class="bg-gray-100">
 
     <nav class="bg-verblanc border-gray-200 ">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 shadow-b-2xl">
@@ -79,7 +80,9 @@ $role = $this->view_data["role"];
                         <span class="sr-only">Search icon</span>
                     </div>
                     <div class="w-80">
-                        <input type="text" id="search-navbar" class="block w-full py-3 px-10 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50  dark:placeholder-gray-400 text-mr focus:!outline-none focus:!border-none focus:!ring-0 focus:!shadow-none " placeholder="Search...">
+                        <form class="search-form">
+                            <input type="text" id="search-field" class="block w-full py-3 px-10 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50  dark:placeholder-gray-400 text-mr focus:!outline-none focus:!border-none focus:!ring-0 focus:!shadow-none " placeholder="Search...">
+                        </form>
                     </div>
 
                 </div>
@@ -124,7 +127,14 @@ $role = $this->view_data["role"];
                 } else {
                     echo '
                 <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border   md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-                    <li>
+                      <li>
+                        <a href="' . BASE_URL . '/wiki/" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Home</a>
+
+                    </li>
+                      <li>
+                        <a href="' . BASE_URL . '/wiki/displayLastCategory" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Categories</a>
+
+                    </li>
                         <a href="' . BASE_URL . '/user/log_in" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Log In</a>
 
                     </li>

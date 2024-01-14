@@ -19,7 +19,9 @@ class StatisticController extends Controller
                 "user" => $this->UserMostWiki(),
                 "totalTag" => $this->totalTags(),
                 "totalAuthor" => $this->totalAuthor(),
-                // "taskinc" => $this->taskIN($user_id)
+                "totalCat" => $this->totalCat(),
+                "usedCat" => $this->usedCat(),
+
 
             ]);
 
@@ -39,6 +41,7 @@ class StatisticController extends Controller
     {
         $this->model("wiki");
         $user = $this->model->getUserWithMostWikis();
+       
         return $user;
     }
     public function totalTags()
@@ -55,13 +58,20 @@ class StatisticController extends Controller
             return $totalAuthor;
     }
 
-    public function taskIN($user_id)
+    public function totalCat()
     {
-        $user_id = $_SESSION["user-id"];
-        $this->model("task");
-        $taskdone = $this->model->task($user_id);
-        if ($taskdone > 0) {
-            return $taskdone;
-        }
+        $this->model("wiki");
+        $total = $this->model->getTotalCategories();
+        if ($total > 0) {
+            return $total;
+        }else return 0;
+    }
+    public function usedCat()
+    {
+        $this->model("wiki");
+        $total = $this->model->getMostUsedCategory();
+        if ($total > 0) {
+            return $total;
+        } else return 0;
     }
 }

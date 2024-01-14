@@ -21,12 +21,7 @@ $wikitags = $wiki["wikitags"];
                 <p class="text-gray-700 text-sm   ">
                     <?= $wiki['content'] ?>
                 </p>
-                <ul class="list-disc text-sm text-gray-700 space-y-2 pl-4 mt-6">
-                    <li>Discover innovative ideas.</li>
-                    <li>Create unique projects.</li>
-                    <li>Collaborate with like-minded individuals.</li>
-                    <li>Transform your visions into reality.</li>
-                </ul>
+               
                 <div class="flex items-center justify-between">
                     <div class="mt-6 flex  items-end justify-end ">
                         <div class="text-moinmaron text-sm  underline">Categorie:</div>

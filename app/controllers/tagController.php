@@ -23,7 +23,7 @@ class TagController extends Controller{
     }
     public function add_tag()
     {
-        if (isset($_POST["submit-add"])) {
+        if (isset($_POST["submitadd"])) {
             $name = isset($_POST["name"]) ? $this->validateData($_POST["name"]) : null;
                 $this->model("tag");
                 $this->model->setName($name);

@@ -1,13 +1,23 @@
  <?php require_once 'includes/sidenavbar.php' ?>
  <?php
     $cats = $this->view_data['category'];
-
     ?>
  <div class="p-4 sm:ml-64 bg-white">
 
      <div class="p-4 rounded-lg mt-14">
          <div class="grid md:grid-cols-2 grid-cols-1  gap-4 mb-4">
              <div class="w-full">
+                 <?php if ($this->view_data["error"] != "") : ?>
+                     <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:text-red-400" role="alert">
+                         <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                         </svg>
+                         <span class="sr-only">Info</span>
+                         <div>
+                             <span class="font-medium"><?= $this->view_data["error"]; ?></span>
+                         </div>
+                     </div>
+                 <?php endif; ?>
                  <div class='max-w-md md:ml-6 shadow-xl w-full'>
                      <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
 
@@ -104,7 +114,7 @@
                      </div>
                  </div>
                  <div class="flex items-center justify-center">
-                     <button name="submit-add" type="submit" class="text-white inline-flex items-center bg-mrbg focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-moinmaron">
+                     <button name="submit-add" type="submit" id="submitButton" class="text-white inline-flex items-center bg-mrbg focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-moinmaron">
                          Add
                      </button>
                      <p class="text-red-500 text-center mb-2 mt-1">

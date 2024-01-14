@@ -39,7 +39,7 @@ class Tag{
            
             if (count($data) > 0) {
                 return $data;
-            }else return false;
+            }else return [];
         } catch (PDOException $e) {
             return $e->getMessage();
         }
