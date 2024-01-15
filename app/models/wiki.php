@@ -100,7 +100,7 @@ class Wiki
     public function getAllWiki()
     {
         try {
-            $stmt = $this->conn->prepare("SELECT user.idUser ,idwiki, title,content, wiki.dateCreation, c.id, c.name FROM wiki inner join `category` as c on c.id=wiki.idcat inner join user on user.idUser=wiki.iduser where archive=0; ");
+            $stmt = $this->conn->prepare("SELECT user.idUser ,idwiki, title,content, wiki.dateCreation, c.id, c.name,wiki.archive FROM wiki inner join `category` as c on c.id=wiki.idcat inner join user on user.idUser=wiki.iduser where archive=0; ");
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
                 return $stmt->fetchAll();
@@ -111,6 +111,21 @@ class Wiki
             return $e->getMessage();
         }
     }
+    public function getWikiAdmin()
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT user.idUser, idwiki, title, content, wiki.dateCreation, c.id, c.name, wiki.archive FROM wiki INNER JOIN `category` as c ON c.id = wiki.idcat INNER JOIN user ON user.idUser = wiki.iduser;");
+            $stmt->execute();
+            if ($stmt->rowCount() > 0) {
+                return $stmt->fetchAll();
+            } else {
+                return [];
+            }
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function getLatestWiki()
     {
         try {
@@ -243,9 +258,9 @@ class Wiki
     public function searchWiki($input)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM wiki JOIN category ON wiki.idcat = category.id
-            LEFT JOIN tag_wiki ON wiki.idwiki = tag_wiki.idwiki LEFT JOIN  tag ON tag_wiki.idtag = tag.idtag left join user on user.idUser = wiki.iduser
-            WHERE title LIKE '%{$input}%'  OR category.name LIKE '%$input%' OR tag.name LIKE '%{$input}%' AND wiki.archive = 0;");
+            $stmt = $this->conn->prepare("SELECT w.*, u.*, c.*, GROUP_CONCAT(t.name) AS tag_names FROM wiki w JOIN user u ON w.iduser = u.idUser JOIN category c ON w.idcat = c.id JOIN tag_wiki wt ON wt.idwiki = w.idwiki JOIN tag t ON wt.idtag = t.idtag WHERE (w.title LIKE '%{$input}%' OR c.name LIKE '%{$input}%' OR t.name LIKE '%{$input}%') AND w.archive = 0 GROUP BY w.idwiki;
+");
+  
             $stmt->execute();
 
             if ($stmt->rowCount() > 0) {
@@ -272,13 +287,7 @@ class Wiki
     public function getUserWithMostWikis()
     {
         try {
-            $stmt = $this->conn->prepare('
-    SELECT u.lastname ,u.firstname , COUNT(w.iduser) as wikiCount
-    FROM wiki w
-    JOIN user u ON w.iduser = u.idUser
-    GROUP BY w.iduser
-    ORDER BY wikiCount DESC
-    LIMIT 1;
+            $stmt = $this->conn->prepare('SELECT u.lastname ,u.firstname , COUNT(w.iduser) as wikiCount FROM wiki w JOIN user u ON w.iduser = u.idUser  GROUP BY w.iduser  ORDER BY wikiCount DESC  LIMIT 1;
     ');
             $stmt->execute();
             $data = $stmt->fetch();
@@ -289,7 +298,14 @@ class Wiki
             return $e->getMessage();
         }
     }
-
+ public function unrarchive($id){
+    $stmt=$this->conn->prepare("UPDATE wiki set archive=0 where idwiki=:id");
+    $stmt->bindParam(":id",$id);
+   
+    if( $stmt->execute()){
+        return true;
+    }else return false;
+ }
     public function getTotalTags()
     {
         try {

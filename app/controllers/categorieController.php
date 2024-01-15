@@ -14,12 +14,16 @@ class CategorieController extends Controller
     // display category
     public function displayCategory()
     {
+        if (isUserLogged()) {
         $this->model("categorie");
         $category = $this->model->getCategory();
         if ($category) {
             return $category;
         } else {
             $this->index("No category ");
+        }
+        } else {
+            redirect('user/log_in');
         }
     }
     

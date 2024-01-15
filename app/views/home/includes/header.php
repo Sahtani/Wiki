@@ -108,11 +108,11 @@ $role = $this->view_data["role"];
 
                     echo
                     ' <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border   md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-     <li>
+                    <li>
                         <a href="' . BASE_URL . '/wiki/" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Home</a>
 
                     </li>
-     <li>
+                    <li>
                         <a href="' . BASE_URL . '/wiki/displayLastCategory" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Categories</a>
 
                     </li>
@@ -135,6 +135,7 @@ $role = $this->view_data["role"];
                         <a href="' . BASE_URL . '/wiki/displayLastCategory" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Categories</a>
 
                     </li>
+                    <li>
                         <a href="' . BASE_URL . '/user/log_in" type="button" class="text-mr font-bold  hover:bg-mr hover:text-white font-serif from-moinbeige to-beige focus:outline-none   rounded-lg text-sm px-6 py-2.5 text-center">Log In</a>
 
                     </li>

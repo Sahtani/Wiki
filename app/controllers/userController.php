@@ -80,7 +80,7 @@ class UserController extends Controller
                 $_SESSION["role"] = $user["role"];
               
                 if($user['role']=='admin'){
-                     redirect("categorie"); 
+                     redirect("statistic"); 
                 }elseif($user['role'] == 'author'){
                     redirect("wiki"); 
                 }

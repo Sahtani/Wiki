@@ -166,24 +166,18 @@
  </body>
  <script>
      document.addEventListener('DOMContentLoaded', function() {
-                 const form = document.querySelector('.addcat');
-                 const nameInput = document.getElementById('editName');
-                 const errorMessage = document.getElementById('errorMessage');
-                 const submitButton = document.getElementById('submitButton');
+         const form = document.querySelector('.addcat');
+         const nameInput = document.getElementById('editName');
+         const errorMessage = document.getElementById('errorMessage');
+         const submitButton = document.getElementById('submitButton');
+         submitButton.addEventListener('click', function(event) {
+             if (nameInput.value.trim() === '' || nameInput.value.trim().length < 3) {
 
-                 // Ajoutez un écouteur d'événements au clic du bouton de soumission
-                 submitButton.addEventListener('click', function(event) {
-                         // Valider le champ 'Name'
-                         if (nameInput.value.trim() === '' || nameInput.value.trim().length < 3) {
-                             
-                                 errorMessage.textContent = 'Le nom de la catégorie est requis.';
-                                 // Empêcher la soumission du formulaire
-                                 event.preventDefault();
-                             } else {
-                                 // Si la validation réussit, le formulaire se soumettra normalement
-                             }
-                         });
-                 });
+                 errorMessage.textContent = 'Category name is required.';
+                 event.preventDefault();
+             }
+         });
+     });
  </script>
  <?php require_once 'includes/footer.php' ?>
 

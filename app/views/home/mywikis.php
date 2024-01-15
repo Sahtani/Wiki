@@ -62,5 +62,5 @@ $wikis = $this->view_data['wikis'];
             </div>
 
     <?php }
-    } else echo "hhh" ?>
+    } else echo '<p class="text-moinbeige text-xl">Read more</p>' ?>
 </div>

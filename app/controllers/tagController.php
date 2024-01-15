@@ -13,12 +13,16 @@ class TagController extends Controller{
     }
     public function displayTag()
     {
+        if (isUserLogged()) {
         $this->model("tag");
         $tags = $this->model->getTags();
         if ($tags > 0) {
             return $tags;
         } else {
             $this->index("No tags exist!");
+            }
+        } else {
+            redirect('user/log_in');
         }
     }
     public function add_tag()

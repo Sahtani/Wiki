@@ -17,7 +17,7 @@ class WikiController extends Controller
                   if (isset($_SESSION["role"])) {
                         $role = $_SESSION["role"];
                   } else $role = "";
-                  $this->view("admin/wikiAdmin", "", ["error" => $error, "role" => $role, "Awikis" => $this->displayAllWikis()]);
+                  $this->view("admin/wikiAdmin", "", ["error" => $error, "role" => $role, "Awikis" => $this->displayWikiAdmin()]);
                   $this->view->render();
             } else {
                   redirect('wiki');
@@ -93,7 +93,22 @@ class WikiController extends Controller
             }
             return $wikisWithTags;
       }
+      public function displayWikiAdmin()
+      {
+            if (isUserLogged()) {
+            $this->model('wiki');
+            $wikis = $this->model->getWikiAdmin();
+            $wikisWithTags = [];
 
+            foreach ($wikis as $wiki) {
+                  $tags = $this->model->getWikiTags($wiki['idwiki']);
+                  $wiki['wikitags'] = $tags;
+                  $wikisWithTags[] = $wiki;
+            }
+            return $wikisWithTags;
+      }else {
+                  redirect('wiki');
+            }}
 
       public function formwiki($error = "")
       {
@@ -173,15 +188,11 @@ class WikiController extends Controller
                               $tag_id = $_POST['listbox'];
                               $this->model('tag');
                               $this->model->add_wiki_tags($data["id"], $tag_id);
-                              die("hi");
                               redirect('wiki/mywikis');
 
                         }else redirect('wiki/mywikis');
             }
       }}
-
-
-
       public function archive_wiki($idWiki)
       {
 
@@ -233,7 +244,14 @@ class WikiController extends Controller
             $this->view("home/single_page", "", ["error" => $error, "role" => $role, "wiki" => $wiki]);
             $this->view->render();
       }
+ public function unrarchiveWiki($id){
+      $this->model("wiki");
+      $archive=$this->model->unrarchive($id);
+      if($archive){
+            redirect("wiki/wikiAdmin");
+      }
 
+ }
       public function setData($data)
       {
             $this->model('wiki');
