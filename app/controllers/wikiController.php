@@ -146,24 +146,17 @@ class WikiController extends Controller
                               $this->model->add_wiki_tags($lastidWiki, $tag_id);
 
                               redirect('wiki/Mywikis');
-                        }
+                        }else redirect('wiki/Mywikis');
                   }
             }
       }
       public function update_wiki()
       {
             if (isset($_POST['submitupdate'])) {
-                  $title = $_POST["title"];
-                  $content = $_POST["content"];
-                  $idcat = $_POST["cat"];
-                  $iduser = $_SESSION["user-id"];
-                  $title = $this->validateData($title);
-                  $content = $this->validateData($content);
-                  $idcat = $this->validateData($idcat);
-                  $iduser = $this->validateData($iduser);
-                  if (empty($title) || empty($content) || empty($idcat) || empty($iduser)) {
-                  }
-
+                  $title = $this->validateData($_POST["title"]);
+                  $content = $this->validateData($_POST["content"]);
+                  $idcat = $this->validateData($_POST["cat"]);
+                  $iduser = $this->validateData($_SESSION["user-id"]);
                   $data = [
                         "id" => $_POST['id'],
                         "title" => $title,
@@ -173,21 +166,20 @@ class WikiController extends Controller
                   ];
 
                   $this->model('wiki');
-                  $this->model->setIdwiki($data["id"]);
-                  $this->setData($data);
-
-                  $lastidWiki = $this->model->updateWiki();
-                  if ($lastidWiki) {
+                  $this->setDataedit($data);
+                  $isWikiUpdated = $this->model->updateWiki();
+                  if ($isWikiUpdated) {
                         if (isset($_POST['listbox'])) {
                               $tag_id = $_POST['listbox'];
                               $this->model('tag');
-                              $this->model->add_wiki_tags($lastidWiki, $tag_id);
+                              $this->model->add_wiki_tags($data["id"], $tag_id);
+                              die("hi");
+                              redirect('wiki/mywikis');
 
-                              redirect('wiki');
-                        }
-                  }
+                        }else redirect('wiki/mywikis');
             }
-      }
+      }}
+
 
 
       public function archive_wiki($idWiki)
@@ -245,7 +237,16 @@ class WikiController extends Controller
       public function setData($data)
       {
             $this->model('wiki');
-            // $this->model->setIdwiki($idwiki);
+            $this->model->setTitle($data["title"]);
+            $this->model->setContent($data["content"]);
+            $this->model->setIdcat($data["idcat"]);
+            $this->model->setIduser($data["iduser"]);
+      }
+
+      public function setDataedit($data)
+      {
+            $this->model('wiki');
+            $this->model->setIdwiki($data["id"]);
             $this->model->setTitle($data["title"]);
             $this->model->setContent($data["content"]);
             $this->model->setIdcat($data["idcat"]);

@@ -100,7 +100,7 @@ class Wiki
     public function getAllWiki()
     {
         try {
-            $stmt = $this->conn->prepare("SELECT idwiki, title,content, wiki.dateCreation, c.id, c.name FROM wiki inner join `category` as c on c.id=wiki.idcat");
+            $stmt = $this->conn->prepare("SELECT user.idUser ,idwiki, title,content, wiki.dateCreation, c.id, c.name FROM wiki inner join `category` as c on c.id=wiki.idcat inner join user on user.idUser=wiki.iduser where archive=0; ");
             $stmt->execute();
             if ($stmt->rowCount() > 0) {
                 return $stmt->fetchAll();
@@ -118,14 +118,16 @@ class Wiki
             SELECT *
             FROM wiki
             INNER JOIN user ON wiki.iduser = user.idUser
-            INNER JOIN category AS c ON c.id = wiki.idcat
+            INNER JOIN category AS c ON c.id = wiki.idcat where archive=0
             ORDER BY wiki.dateCreation DESC
-            LIMIT 2
+            LIMIT 2  
         ");
             $stmt->execute();
-            $results = $stmt->fetchAll();
-
-            return $results;
+            if ($stmt->rowCount() > 0) {
+                return $stmt->fetchAll();
+            } else {
+                return [];
+            }
         } catch (PDOException $e) {
             return $e->getMessage();
         }
@@ -163,7 +165,7 @@ class Wiki
             if (count($data) > 0) {
                 return $data;
             } else {
-                return false;
+                return [];
             }
         } catch (PDOException $e) {
             return $e->getMessage();
@@ -204,7 +206,7 @@ class Wiki
     }
     public function updateWiki()
     {
-        $stmt = $this->conn->prepare('UPDATE  wiki SET title=:title, content=:content where iduser=:user_id and idcat=:category_id and idwiki=:id');
+        $stmt = $this->conn->prepare('UPDATE  wiki SET title=:title, content=:content ,idcat=:category_id where idwiki=:id  and iduser=:user_id');
         $stmt->bindParam(":id", $this->idwiki);
         $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':content', $this->content);
@@ -241,11 +243,6 @@ class Wiki
     public function searchWiki($input)
     {
         try {
-//             $stmt = $this->conn->prepare("
-//             SELECT * FROM wiki JOIN category ON wiki.idcat = category.id
-//             LEFT JOIN tag_wiki ON wiki.idwiki = tag_wiki.idwiki LEFT JOIN  tag ON tag_wiki.idtag = tag.idtag
-//             WHERE  wiki.archive = 0 AND ( title LIKE '%{$input}%' OR category.name LIKE '%{$input}%' OR tag.name LIKE '%{$input}%')
-// ");
             $stmt = $this->conn->prepare("SELECT * FROM wiki JOIN category ON wiki.idcat = category.id
             LEFT JOIN tag_wiki ON wiki.idwiki = tag_wiki.idwiki LEFT JOIN  tag ON tag_wiki.idtag = tag.idtag left join user on user.idUser = wiki.iduser
             WHERE title LIKE '%{$input}%'  OR category.name LIKE '%$input%' OR tag.name LIKE '%{$input}%' AND wiki.archive = 0;");
@@ -265,7 +262,9 @@ class Wiki
             $stmt = $this->conn->prepare('SELECT COUNT(idwiki) as totalWikis FROM wiki');
             $stmt->execute();
             $data = $stmt->fetch();
-            return $data;
+            if ($data > 0) {
+                return $data;
+            } else return 0;
         } catch (PDOException $e) {
             return $e->getMessage();
         }
@@ -297,7 +296,9 @@ class Wiki
             $stmt = $this->conn->prepare('SELECT COUNT(idtag) as totalTags FROM tag');
             $stmt->execute();
             $data = $stmt->fetch();
-            return $data;
+            if ($data > 0) {
+                return $data;
+            } else return 0;
         } catch (PDOException $e) {
             return $e->getMessage();
         }

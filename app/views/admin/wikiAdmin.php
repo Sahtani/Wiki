@@ -6,18 +6,7 @@ $wikis = $this->view_data['Awikis'];
         <div class="grid  grid-cols-1  gap-4 mb-4">
             <div class="flex items-center justify-center w-full">
                 <form method=post action="<?= BASE_URL ?>/task/search" class="w-full">
-                    <div class='max-w-md ml-6 shadow-xl w-full'>
-                        <div class="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
 
-
-                            <input class=" p-2 border border-0 border-white focus:outline-none focus:ring focus:ring-white h-full w-full outline-none text-sm text-gray-700 pr-2" name="task_search" type="text" id="search" placeholder="Search task.." />
-                            <button id="button" type="submit" name="search_submit" class="grid place-items-center h-full w-12 text-gray-300 border border-0 border-white focus:outline-none focus:ring focus:ring-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>
@@ -27,10 +16,9 @@ $wikis = $this->view_data['Awikis'];
                 foreach ($wikis as $wiki) {
                     $wikitags = $wiki["wikitags"];
             ?>
-                    <div class="cursor-pointer border border-beige p-4 rounded-lg overflow-hidden group shadow">
+                    <div class="cursor-pointer border border-beige p-4 rounded-lg overflow-hidden group shadow-xl">
                         <h1 class="text-mr text-xl font-bold font-serif pb-2"><?= $wiki['title'] ?></h1>
-                        <p class="truncate"><?= substr($wiki['content'], 0, 200); ?></p>
-
+                        <p><?= substr($wiki['content'], 0, 100) . '...'; ?></p>
                         <div class="py-6">
                             <span class="text-sm block text-gray-400 mb-2"><?= date('j M Y', strtotime($wiki["dateCreation"])) ?></span>
                             <h3 class="text-xl font-bold text-[#333] group-hover:text-moinbeige transition-all"><?= $wiki['name'] ?></h3>
@@ -49,7 +37,7 @@ $wikis = $this->view_data['Awikis'];
                             </div>
                         </div>
                         <div class=" mt-4 flex items-center justify-end gap-4 border-t bg-white w-full">
-
+                          
                             <a href="<?= BASE_URL ?>/wiki/archive_wiki/<?= $wiki['idwiki'] ?>" title="Delete" class="mt-4 text-white ">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="26" width="30" viewBox="0 0 512 512">
                                     <path fill="#e66565" d="M32 32H480c17.7 0 32 14.3 32 32V96c0 17.7-14.3 32-32 32H32C14.3 128 0 113.7 0 96V64C0 46.3 14.3 32 32 32zm0 128H480V416c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V160zm128 80c0 8.8 7.2 16 16 16H336c8.8 0 16-7.2 16-16s-7.2-16-16-16H176c-8.8 0-16 7.2-16 16z" />

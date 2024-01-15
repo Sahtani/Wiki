@@ -35,19 +35,12 @@ $wiki = $this->view_data["wiki"];
             </div>
             <div>
                 <label for="lists" class="block mb-2 text-sm font-medium text-gray-300 dark:text-white">Select an option</label>
-                <select name="listbox[]" multiple="multiple" class="border border-beige text-gray-900 text-sm rounded-lg block w-full p-2.5  shadow dark:placeholder-gray-400 ">
-                    <option value="" disabled>Select tag</option>
-                    <?php
-
-                    foreach ($tags as  $tag) {
-                    ?>
-                        <option value="<?= $tag['idtag']; ?>" ?><?= $tag['name']; ?></option>
-
-                    <?php }; ?>
-
+                <select id="tags" name="listbox[]" class="form-control" multiple class="border border-beige text-gray-900 text-sm rounded-lg block w-full p-2.5  shadow dark:placeholder-gray-400 ">
+                    <option class="mx-10 w-full" value="" selected disabled>Select Tag</option>
+                    <?php foreach ($tags as $tag) : ?>
+                        <option class=" w-full" value='<?= $tag['idtag']; ?>'><?= $tag['name']; ?></option>
+                    <?php endforeach; ?>
                 </select>
-
-
 
                 </select>
             </div>
@@ -58,6 +51,7 @@ $wiki = $this->view_data["wiki"];
         </form>
     </div>
 </div>
+<?php require_once 'includes/footer.php' ?>
 </body>
 
 </html>
